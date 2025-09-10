@@ -1,0 +1,56 @@
+import java.util.*;
+
+class Course {
+    private String name;
+    private Professor professor;
+    private List<Student> students = new ArrayList<>();
+
+    public Course(String name) { this.name = name; }
+
+    public void assignProfessor(Professor p) {
+        this.professor = p;
+        System.out.println("Professor " + p.getName() + " assigned to " + name);
+    }
+
+    public void enrollStudent(Student s) {
+        students.add(s);
+        System.out.println("Student " + s.getName() + " enrolled in " + name);
+    }
+
+    public void showCourse() {
+        System.out.println("Course: " + name);
+        System.out.println("Professor: " + (professor != null ? professor.getName() : "None"));
+        System.out.println("Students:");
+        for (Student s : students) System.out.println(" - " + s.getName());
+    }
+}
+
+class Student {
+    private String name;
+    public Student(String name) { this.name = name; }
+    public String getName() { return name; }
+    public void enrollCourse(Course c) { c.enrollStudent(this); }
+}
+
+class Professor {
+    private String name;
+    public Professor(String name) { this.name = name; }
+    public String getName() { return name; }
+}
+
+public class UniversityMgmtDemo {
+    public static void main(String[] args) {
+        Student s1 = new Student("Bhoomi");
+        Student s2 = new Student("Aryan");
+
+        Professor p1 = new Professor("Dr. Sharma");
+
+        Course c1 = new Course("OOPS");
+        c1.assignProfessor(p1);
+
+        s1.enrollCourse(c1);
+        s2.enrollCourse(c1);
+
+        c1.showCourse();
+    }
+}
